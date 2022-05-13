@@ -4,7 +4,9 @@ import { XIcon } from '@heroicons/react/outline'
 import getIPFSLink from '@lib/getIPFSLink'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
-import React, { FC } from 'react'
+import dynamic from 'next/dynamic'
+import React, { FC, useState } from 'react'
+const MediaModal = dynamic(() => import('../UI/MediaModal'))
 
 const getGridRows = (attachments: number) => {
   if (attachments === 1) {
@@ -27,6 +29,9 @@ const Attachments: FC<Props> = ({
   setAttachments,
   isNew = false
 }) => {
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const [selectedAttachment, setSelectedAttachment] = useState<MediaSet>()
+
   const removeAttachment = (attachment: any) => {
     const arr = attachments
     setAttachments(
@@ -45,15 +50,26 @@ const Attachments: FC<Props> = ({
         'grid grid-flow-col gap-2 pt-3'
       )}
     >
+      {selectedAttachment?.original && (
+        <MediaModal
+          selectedAttachment={selectedAttachment}
+          show={showModal}
+          onClose={() => setShowModal(!showModal)}
+        />
+      )}
       {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => (
         <div
-          className="aspect-w-16 aspect-h-12"
+          className="aspect-w-16 aspect-h-12 cursor-pointer"
           key={isNew ? attachment.item : getIPFSLink(attachment.original.url)}
+          onClick={() => {
+            setShowModal(!showModal)
+            setSelectedAttachment(attachment)
+          }}
         >
           {(isNew ? attachment.type : attachment.original.mimeType) ===
           'video/mp4' ? (
             <video
-              controls
+              controls={false}
               className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
             >
               <source
