@@ -1,5 +1,6 @@
 import { Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
+import formatHandle from '@lib/formatHandle'
 import getAvatar from '@lib/getAvatar'
 import isVerified from '@lib/isVerified'
 import Link from 'next/link'
@@ -32,7 +33,7 @@ export const NotificationProfileName: FC<Props> = ({ profile }) => {
         href={`/u/${profile?.handle}`}
         className="inline-flex items-center space-x-1 font-bold"
       >
-        <div>{profile?.name ?? profile?.handle}</div>
+        <div>{formatHandle(profile?.name ?? profile?.handle)}</div>
         {isVerified(profile?.id) && (
           <BadgeCheckIcon className="w-4 h-4 text-brand" />
         )}

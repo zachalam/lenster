@@ -12,11 +12,11 @@ const Mirrored: FC<Props> = ({ post }) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
-    <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
+    <div className="flex items-center pb-4 flex-1 overflow-hidden space-x-1 text-gray-500 text-[13px]">
       <SwitchHorizontalIcon className="w-4 h-4" />
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center space-x-1 truncate">
         <Link href={`/u/${post?.profile?.handle}`}>
-          <a href={`/u/${post?.profile?.handle}`}>
+          <a href={`/u/${post?.profile?.handle}`} className="overflow-hidden">
             {post?.profile?.name ? (
               <b>{post?.profile?.name}</b>
             ) : (
