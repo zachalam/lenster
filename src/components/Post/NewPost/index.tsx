@@ -47,28 +47,28 @@ import {
 } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
-  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 const Giphy = dynamic(() => import('../../Shared/Giphy'), {
-  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 const EmojiPicker = dynamic(() => import('../../Shared/EmojiPicker'), {
-  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 const SelectCollectModule = dynamic(
   () => import('../../Shared/SelectCollectModule'),
   {
-    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
   }
 )
 const SelectReferenceModule = dynamic(
   () => import('../../Shared/SelectReferenceModule'),
   {
-    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
   }
 )
 const Preview = dynamic(() => import('../../Shared/Preview'), {
-  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
@@ -281,7 +281,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   }
 
   const onSelectEmoji = (emoji: string) => {
-    setPostContent((content) => `${content} ${emoji}`)
+    setPostContent((content) => `${content}${emoji}`)
   }
 
   return (
@@ -308,7 +308,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               placeholder="What's happening?"
             />
           )}
-          <div className="items-center block sm:flex">
+          <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}

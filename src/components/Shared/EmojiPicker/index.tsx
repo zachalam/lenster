@@ -4,6 +4,7 @@ import data from '@emoji-mart/data'
 import { EmojiHappyIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
+import { useTheme } from 'next-themes'
 import { FC, useEffect, useRef, useState } from 'react'
 
 type Props = {
@@ -16,7 +17,7 @@ const Picker = (props: any) => {
 
   useEffect(() => {
     import('emoji-mart').then((EmojiMart) => {
-      new EmojiMart.Picker({ ...props, data, ref, theme: 'auto' })
+      new EmojiMart.Picker({ ...props, data, ref })
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -25,6 +26,7 @@ const Picker = (props: any) => {
 }
 
 const EmojiPicker: FC<Props> = ({ onSelectEmoji }) => {
+  const { resolvedTheme } = useTheme()
   const [showPicker, setShowPicker] = useState(false)
   const pickerRef = useRef(null)
 
@@ -52,8 +54,8 @@ const EmojiPicker: FC<Props> = ({ onSelectEmoji }) => {
         </motion.button>
       </Tooltip>
       {showPicker && (
-        <div className="absolute" ref={pickerRef}>
-          <Picker onEmojiSelect={onEmojiClick} />
+        <div className="absolute z-50" ref={pickerRef}>
+          <Picker onEmojiSelect={onEmojiClick} theme={resolvedTheme} />
         </div>
       )}
     </div>
