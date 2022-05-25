@@ -1,6 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
+import EmojiPicker from '@components/Shared/EmojiPicker'
 import Markup from '@components/Shared/Markup'
 import Preview from '@components/Shared/Preview'
 import PubIndexStatus from '@components/Shared/PubIndexStatus'
@@ -51,21 +52,21 @@ import {
 } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
 })
 const Giphy = dynamic(() => import('../../Shared/Giphy'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
 })
 const SelectCollectModule = dynamic(
   () => import('../../Shared/SelectCollectModule'),
   {
-    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
   }
 )
 const SelectReferenceModule = dynamic(
   () => import('../../Shared/SelectReferenceModule'),
   {
-    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
   }
 )
 
@@ -287,6 +288,10 @@ const NewComment: FC<Props> = ({ post, type }) => {
     setAttachments([...attachments, attachment])
   }
 
+  const onSelectEmoji = (emoji: string) => {
+    setCommentContent((content) => `${content} ${emoji}`)
+  }
+
   return (
     <Card>
       <div className="px-5 pt-5 pb-3">
@@ -311,13 +316,16 @@ const NewComment: FC<Props> = ({ post, type }) => {
               placeholder="Tell something cool!"
             />
           )}
-          <div className="block items-center sm:flex">
+          <div className="items-center block sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
                 setAttachments={setAttachments}
               />
               <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+              <EmojiPicker
+                onSelectEmoji={(emoji: string) => onSelectEmoji(emoji)}
+              />
               <SelectCollectModule
                 feeData={feeData}
                 setFeeData={setFeeData}

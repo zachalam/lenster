@@ -47,25 +47,28 @@ import {
 } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
 })
 const Giphy = dynamic(() => import('../../Shared/Giphy'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+})
+const EmojiPicker = dynamic(() => import('../../Shared/EmojiPicker'), {
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
 })
 const SelectCollectModule = dynamic(
   () => import('../../Shared/SelectCollectModule'),
   {
-    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
   }
 )
 const SelectReferenceModule = dynamic(
   () => import('../../Shared/SelectReferenceModule'),
   {
-    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
   }
 )
 const Preview = dynamic(() => import('../../Shared/Preview'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
 })
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
@@ -277,6 +280,10 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     setAttachments([...attachments, attachment])
   }
 
+  const onSelectEmoji = (emoji: string) => {
+    setPostContent((content) => `${content} ${emoji}`)
+  }
+
   return (
     <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
@@ -301,13 +308,16 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               placeholder="What's happening?"
             />
           )}
-          <div className="block items-center sm:flex">
+          <div className="items-center block sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
                 setAttachments={setAttachments}
               />
               <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+              <EmojiPicker
+                onSelectEmoji={(emoji: string) => onSelectEmoji(emoji)}
+              />
               <SelectCollectModule
                 feeData={feeData}
                 setFeeData={setFeeData}
