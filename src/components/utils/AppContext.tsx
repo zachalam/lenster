@@ -5,7 +5,6 @@ import { createContext, Dispatch } from 'react'
 export interface ContextType {
   selectedProfile: number
   setSelectedProfile: Dispatch<number>
-  profiles: Profile[]
   currentUser: Profile | undefined
   currentUserError?: ApolloError
 }
@@ -13,7 +12,6 @@ export interface ContextType {
 const AppContext = createContext<ContextType>({
   selectedProfile: 0,
   setSelectedProfile: () => {},
-  profiles: [],
   currentUser: undefined,
   currentUserError: undefined
 })

@@ -6,6 +6,7 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { FC, useContext } from 'react'
@@ -29,7 +30,8 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 )
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles } = useContext(AppContext)
+  const { currentUser } = useContext(AppContext)
+  const { profiles } = useAppStore()
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const doneSetup =
     !!currentUser?.name && !!currentUser?.bio && !!currentUser?.picture

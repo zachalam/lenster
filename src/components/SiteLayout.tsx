@@ -32,7 +32,7 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { setCurrentUserLoading } = useAppStore()
+  const { setCurrentUserLoading, setProfiles } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
@@ -43,7 +43,15 @@ const SiteLayout: FC<Props> = ({ children }) => {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken,
     onCompleted(data) {
+      const profiles: Profile[] = data?.profiles?.items
+        ?.slice()
+        ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
+        ?.sort((a: Profile, b: Profile) =>
+          !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+        )
+
       setCurrentUserLoading(false)
+      setProfiles(profiles)
       consoleLog(
         'Query',
         '#8b5cf6',
@@ -79,7 +87,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const injectedGlobalContext = {
     selectedProfile,
     setSelectedProfile,
-    profiles: profiles,
     currentUser: profiles && profiles[selectedProfile],
     currentUserError: error
   }

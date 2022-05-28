@@ -43,9 +43,10 @@ const MenuItems: FC = () => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const { profiles, currentUser, setSelectedProfile } = useContext(AppContext)
+  const { currentUser, setSelectedProfile } = useContext(AppContext)
 
-  const { staffMode, setStaffMode, currentUserLoading } = useAppStore()
+  const { profiles, staffMode, setStaffMode, currentUserLoading } =
+    useAppStore()
 
   return currentUserLoading ? (
     <div className="w-8 h-8 rounded-full shimmer" />

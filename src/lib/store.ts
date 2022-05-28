@@ -1,3 +1,4 @@
+import { Profile } from '@generated/types'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -6,6 +7,8 @@ interface AppState {
   setStaffMode: (staffMode: boolean) => void
   currentUserLoading: boolean
   setCurrentUserLoading: (currentUserLoading: boolean) => void
+  profiles: Profile[]
+  setProfiles: (profiles: Profile[]) => void
 }
 
 export const useAppStore = create(
@@ -15,7 +18,9 @@ export const useAppStore = create(
       setStaffMode: (staffMode: boolean) => set(() => ({ staffMode })),
       currentUserLoading: false,
       setCurrentUserLoading: (currentUserLoading: boolean) =>
-        set(() => ({ currentUserLoading }))
+        set(() => ({ currentUserLoading })),
+      profiles: [],
+      setProfiles: (profiles) => set(() => ({ profiles }))
     }),
     {
       name: 'app-storage'

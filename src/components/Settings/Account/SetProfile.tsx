@@ -14,6 +14,7 @@ import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -65,7 +66,8 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles } = useContext(AppContext)
+  const { currentUser } = useContext(AppContext)
+  const { profiles } = useAppStore()
   const [selectedUser, setSelectedUser] = useState<string>()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
