@@ -13,7 +13,6 @@ import { Modal } from '@components/UI/Modal'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import { WarningMessage } from '@components/UI/WarningMessage'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -32,9 +31,10 @@ import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { Dispatch, FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -116,7 +116,7 @@ interface Props {
 }
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 

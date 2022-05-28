@@ -4,14 +4,14 @@ import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import useAppStore from '@lib/store'
 import { useRouter } from 'next/router'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import ReferenceAlert from '../Shared/ReferenceAlert'
@@ -50,7 +50,7 @@ const Feed: FC<Props> = ({
   const {
     query: { id }
   } = useRouter()
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {

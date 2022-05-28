@@ -4,14 +4,14 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
-import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import randomizeArray from '@lib/randomizeArray'
-import React, { FC, useContext } from 'react'
+import useAppStore from '@lib/store'
+import React, { FC } from 'react'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
@@ -23,7 +23,7 @@ const RECOMMENDED_PROFILES_QUERY = gql`
 `
 
 const Title = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
 
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">

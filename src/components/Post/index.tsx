@@ -4,16 +4,16 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Footer from '@components/Shared/Footer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import consoleLog from '@lib/consoleLog'
+import useAppStore from '@lib/store'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
@@ -65,7 +65,7 @@ const ViewPost: NextPage = () => {
     query: { id }
   } = useRouter()
 
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },

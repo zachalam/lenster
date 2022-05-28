@@ -7,7 +7,6 @@ import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
@@ -16,7 +15,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
-import React, { FC, useContext, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -66,8 +65,7 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { currentUser } = useContext(AppContext)
-  const { profiles } = useAppStore()
+  const { currentUser, profiles } = useAppStore()
   const [selectedUser, setSelectedUser] = useState<string>()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()

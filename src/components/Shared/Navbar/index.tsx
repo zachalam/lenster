@@ -1,4 +1,3 @@
-import AppContext from '@components/utils/AppContext'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import isStaff from '@lib/isStaff'
@@ -7,7 +6,7 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 
 import MenuItems from './MenuItems'
 import MoreNavItems from './MoreNavItems'
@@ -18,8 +17,7 @@ const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
 const Notification = dynamic(() => import('../../Notification'))
 
 const Navbar: FC = () => {
-  const { currentUser } = useContext(AppContext)
-  const { staffMode } = useAppStore()
+  const { currentUser, staffMode } = useAppStore()
 
   interface NavItemProps {
     url: string

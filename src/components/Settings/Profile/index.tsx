@@ -2,13 +2,13 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { PhotographIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import { NextPage } from 'next'
-import React, { FC, ReactChild, useContext, useState } from 'react'
+import React, { FC, ReactChild, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -52,7 +52,7 @@ const PROFILE_SETTINGS_QUERY = gql`
 `
 
 const ProfileSettings: NextPage = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR')
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },

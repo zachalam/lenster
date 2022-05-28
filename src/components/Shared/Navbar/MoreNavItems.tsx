@@ -1,4 +1,3 @@
-import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import {
   CashIcon,
@@ -6,14 +5,15 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import { FC, Fragment, useContext } from 'react'
+import { FC, Fragment } from 'react'
 import { IS_MAINNET } from 'src/constants'
 
 import { NextLink } from './MenuItems'
 
 const MoreNavItems: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
 
   return (
     <Menu as="div">

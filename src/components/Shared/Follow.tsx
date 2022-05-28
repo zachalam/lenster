@@ -2,15 +2,15 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
-import { Dispatch, FC, useContext } from 'react'
+import { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -71,7 +71,7 @@ const Follow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

@@ -1,9 +1,9 @@
 import { gql, useQuery } from '@apollo/client'
-import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import { LightningBoltIcon } from '@heroicons/react/outline'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
-import { FC, Fragment, useContext, useEffect, useState } from 'react'
+import { FC, Fragment, useEffect, useState } from 'react'
 
 import List from './List'
 
@@ -18,7 +18,7 @@ const NOTIFICATION_COUNT_QUERY = gql`
 `
 
 const Notification: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },

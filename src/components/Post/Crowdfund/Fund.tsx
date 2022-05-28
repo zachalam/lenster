@@ -5,7 +5,6 @@ import AllowanceButton from '@components/Settings/Allowance/Button'
 import Uniswap from '@components/Shared/Uniswap'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -13,8 +12,9 @@ import { CashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
-import React, { Dispatch, FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -72,7 +72,7 @@ interface Props {
 }
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [allowed, setAllowed] = useState<boolean>(true)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()

@@ -43,9 +43,9 @@ const MenuItems: FC = () => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const { currentUser, setSelectedProfile } = useContext(AppContext)
+  const { setSelectedProfile } = useContext(AppContext)
 
-  const { profiles, staffMode, setStaffMode, currentUserLoading } =
+  const { profiles, staffMode, setStaffMode, currentUser, currentUserLoading } =
     useAppStore()
 
   return currentUserLoading ? (

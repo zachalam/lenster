@@ -9,6 +9,8 @@ interface AppState {
   setCurrentUserLoading: (currentUserLoading: boolean) => void
   profiles: Profile[]
   setProfiles: (profiles: Profile[]) => void
+  currentUser: Profile | undefined
+  setCurrentUser: (currentUser: Profile) => void
 }
 
 export const useAppStore = create(
@@ -20,7 +22,9 @@ export const useAppStore = create(
       setCurrentUserLoading: (currentUserLoading: boolean) =>
         set(() => ({ currentUserLoading })),
       profiles: [],
-      setProfiles: (profiles) => set(() => ({ profiles }))
+      setProfiles: (profiles) => set(() => ({ profiles })),
+      currentUser: undefined,
+      setCurrentUser: (currentUser) => set(() => ({ currentUser }))
     }),
     {
       name: 'app-storage'

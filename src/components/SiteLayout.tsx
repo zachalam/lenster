@@ -32,14 +32,14 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { setCurrentUserLoading, setProfiles } = useAppStore()
+  const { setCurrentUserLoading, setProfiles, setCurrentUser } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
-  const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
+  const { loading, error } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken,
     onCompleted(data) {
@@ -51,6 +51,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
         )
 
       setCurrentUserLoading(false)
+      setCurrentUser(profiles && profiles[selectedProfile])
       setProfiles(profiles)
       consoleLog(
         'Query',
@@ -59,15 +60,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
       )
     }
   })
-  const profiles: Profile[] = data?.profiles?.items
-    ?.slice()
-    ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
-    ?.sort((a: Profile, b: Profile) =>
-      !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
-    )
 
   useEffect(() => {
-    console.log(loading)
     setRefreshToken(Cookies.get('refreshToken'))
     setSelectedProfile(localStorage.selectedProfile)
     setPageLoading(false)
@@ -87,7 +81,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const injectedGlobalContext = {
     selectedProfile,
     setSelectedProfile,
-    currentUser: profiles && profiles[selectedProfile],
     currentUserError: error
   }
 

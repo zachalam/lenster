@@ -7,7 +7,6 @@ import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   CashIcon,
@@ -17,8 +16,9 @@ import {
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import React, { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
@@ -53,7 +53,7 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {

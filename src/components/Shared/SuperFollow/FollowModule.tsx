@@ -5,7 +5,6 @@ import AllowanceButton from '@components/Settings/Allowance/Button'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { WarningMessage } from '@components/UI/WarningMessage'
-import AppContext from '@components/utils/AppContext'
 import { LensterFollowModule } from '@generated/lenstertypes'
 import {
   CreateFollowBroadcastItemResult,
@@ -19,8 +18,9 @@ import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
-import { Dispatch, FC, useContext, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -112,7 +112,7 @@ const FollowModule: FC<Props> = ({
   setFollowersCount,
   again
 }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [allowed, setAllowed] = useState<boolean>(true)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()

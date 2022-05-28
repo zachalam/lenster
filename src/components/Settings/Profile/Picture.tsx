@@ -6,7 +6,6 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
   MediaSet,
@@ -19,9 +18,10 @@ import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
-import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -76,7 +76,7 @@ interface Props {
 const Picture: FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

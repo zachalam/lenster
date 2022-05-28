@@ -7,7 +7,6 @@ import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20
@@ -18,8 +17,9 @@ import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -101,7 +101,7 @@ const SuperFollow: FC = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

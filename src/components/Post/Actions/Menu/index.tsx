@@ -1,14 +1,14 @@
 import { NextLink } from '@components/Shared/Navbar/MenuItems'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { Menu, Transition } from '@headlessui/react'
 import {
   DotsHorizontalIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import { FC, Fragment, useContext } from 'react'
+import { FC, Fragment } from 'react'
 
 import Delete from './Delete'
 import Permalink from './Permalink'
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const PostMenu: FC<Props> = ({ post }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
 
   return (
     <Menu as="div">

@@ -13,7 +13,6 @@ import { Input } from '@components/UI/Input'
 import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -23,11 +22,12 @@ import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import { NextPage } from 'next'
-import React, { ChangeEvent, useContext, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -86,7 +86,7 @@ const Create: NextPage = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

@@ -10,7 +10,6 @@ import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { MentionTextArea } from '@components/UI/MentionTextArea'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterAttachment, LensterPost } from '@generated/lenstertypes'
 import {
   CreateCommentBroadcastItemResult,
@@ -28,11 +27,12 @@ import {
 } from '@lib/getModule'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { FC, useContext, useState } from 'react'
+import { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -114,7 +114,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)

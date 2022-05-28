@@ -3,12 +3,12 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { Card } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { Erc20 } from '@generated/types'
 import consoleLog from '@lib/consoleLog'
+import useAppStore from '@lib/store'
 import { NextPage } from 'next'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
@@ -52,7 +52,7 @@ const getAllowancePayload = (currency: string) => {
 }
 
 const AllowanceSettings: NextPage = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [currencyLoading, setCurrencyLoading] = useState<boolean>(false)
   const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
