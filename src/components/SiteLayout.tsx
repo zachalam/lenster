@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
+import useAppStore from '@lib/store'
 import Cookies from 'js-cookie'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
@@ -31,6 +32,7 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
+  const { setCurrentUserLoading } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
@@ -41,6 +43,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken,
     onCompleted(data) {
+      setCurrentUserLoading(false)
       consoleLog(
         'Query',
         '#8b5cf6',
@@ -56,6 +59,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     )
 
   useEffect(() => {
+    console.log(loading)
     setRefreshToken(Cookies.get('refreshToken'))
     setSelectedProfile(localStorage.selectedProfile)
     setPageLoading(false)
@@ -77,7 +81,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setSelectedProfile,
     profiles: profiles,
     currentUser: profiles && profiles[selectedProfile],
-    currentUserLoading: loading,
     currentUserError: error
   }
 

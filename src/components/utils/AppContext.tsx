@@ -7,7 +7,6 @@ export interface ContextType {
   setSelectedProfile: Dispatch<number>
   profiles: Profile[]
   currentUser: Profile | undefined
-  currentUserLoading: boolean
   currentUserError?: ApolloError
 }
 
@@ -16,7 +15,6 @@ const AppContext = createContext<ContextType>({
   setSelectedProfile: () => {},
   profiles: [],
   currentUser: undefined,
-  currentUserLoading: false,
   currentUserError: undefined
 })
 
