@@ -21,6 +21,7 @@ import getAttribute from '@lib/getAttribute'
 import getAvatar from '@lib/getAvatar'
 import isStaff from '@lib/isStaff'
 import isVerified from '@lib/isVerified'
+import useAppStore from '@lib/store'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
@@ -45,7 +46,8 @@ interface Props {
 const Details: FC<Props> = ({ profile }) => {
   const [followersCount, setFollowersCount] = useState<number>(0)
   const [following, setFollowing] = useState<boolean>(false)
-  const { currentUser, staffMode } = useContext(AppContext)
+  const { currentUser } = useContext(AppContext)
+  const { staffMode } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { data: ensName } = useENS(profile?.ownedBy ?? '')
 

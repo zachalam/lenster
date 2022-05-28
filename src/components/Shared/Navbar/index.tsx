@@ -2,6 +2,7 @@ import AppContext from '@components/utils/AppContext'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import isStaff from '@lib/isStaff'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -17,7 +18,8 @@ const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
 const Notification = dynamic(() => import('../../Notification'))
 
 const Navbar: FC = () => {
-  const { currentUser, staffMode } = useContext(AppContext)
+  const { currentUser } = useContext(AppContext)
+  const { staffMode } = useAppStore()
 
   interface NavItemProps {
     url: string

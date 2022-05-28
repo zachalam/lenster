@@ -5,8 +5,6 @@ import { createContext, Dispatch } from 'react'
 export interface ContextType {
   selectedProfile: number
   setSelectedProfile: Dispatch<number>
-  staffMode?: boolean
-  setStaffMode: Dispatch<boolean>
   profiles: Profile[]
   currentUser: Profile | undefined
   currentUserLoading: boolean
@@ -16,8 +14,6 @@ export interface ContextType {
 const AppContext = createContext<ContextType>({
   selectedProfile: 0,
   setSelectedProfile: () => {},
-  staffMode: false,
-  setStaffMode: () => {},
   profiles: [],
   currentUser: undefined,
   currentUserLoading: false,

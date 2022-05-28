@@ -1,9 +1,9 @@
-import AppContext from '@components/utils/AppContext'
+import useAppStore from '@lib/store'
 import Link from 'next/link'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 
 const Footer: FC = () => {
-  const { staffMode } = useContext(AppContext)
+  const { staffMode } = useAppStore()
 
   return (
     <footer

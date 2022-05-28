@@ -18,6 +18,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
 import isBeta from '@lib/isBeta'
 import isStaff from '@lib/isStaff'
+import useAppStore from '@lib/store'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
@@ -42,19 +43,10 @@ const MenuItems: FC = () => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const {
-    staffMode,
-    setStaffMode,
-    profiles,
-    currentUser,
-    currentUserLoading,
-    setSelectedProfile
-  } = useContext(AppContext)
+  const { profiles, currentUser, currentUserLoading, setSelectedProfile } =
+    useContext(AppContext)
 
-  const toggleStaffMode = () => {
-    localStorage.setItem('staffMode', String(!staffMode))
-    setStaffMode(!staffMode)
-  }
+  const { staffMode, setStaffMode } = useAppStore()
 
   return currentUserLoading ? (
     <div className="w-8 h-8 rounded-full shimmer" />
@@ -229,7 +221,7 @@ const MenuItems: FC = () => {
                   <div className="divider" />
                   <Menu.Item
                     as="div"
-                    onClick={toggleStaffMode}
+                    onClick={() => setStaffMode(!staffMode)}
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-yellow-100 dark:bg-yellow-800': active },

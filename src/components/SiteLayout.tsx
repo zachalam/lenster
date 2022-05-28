@@ -32,7 +32,6 @@ interface Props {
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
-  const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const { data: accountData } = useAccount()
@@ -59,7 +58,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
     setSelectedProfile(localStorage.selectedProfile)
-    setStaffMode(localStorage.staffMode === 'true')
     setPageLoading(false)
 
     if (!activeConnector) {
@@ -77,8 +75,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const injectedGlobalContext = {
     selectedProfile,
     setSelectedProfile,
-    staffMode,
-    setStaffMode,
     profiles: profiles,
     currentUser: profiles && profiles[selectedProfile],
     currentUserLoading: loading,
