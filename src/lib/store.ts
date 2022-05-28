@@ -11,6 +11,8 @@ interface AppState {
   setProfiles: (profiles: Profile[]) => void
   currentUser: Profile | undefined
   setCurrentUser: (currentUser: Profile) => void
+  selectedProfile: number
+  setSelectedProfile: (selectedProfile: number) => void
 }
 
 export const useAppStore = create(
@@ -24,7 +26,10 @@ export const useAppStore = create(
       profiles: [],
       setProfiles: (profiles) => set(() => ({ profiles })),
       currentUser: undefined,
-      setCurrentUser: (currentUser) => set(() => ({ currentUser }))
+      setCurrentUser: (currentUser) => set(() => ({ currentUser })),
+      selectedProfile: 0,
+      setSelectedProfile: (selectedProfile: number) =>
+        set(() => ({ selectedProfile }))
     }),
     {
       name: 'app-storage'

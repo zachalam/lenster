@@ -72,7 +72,6 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     trackEvent('delete profile')
-    localStorage.setItem('selectedProfile', '0')
     location.href = '/'
   }
 

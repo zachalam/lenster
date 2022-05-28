@@ -12,7 +12,6 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
 import Loading from './Loading'
 import Navbar from './Shared/Navbar'
-import AppContext from './utils/AppContext'
 
 export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {
@@ -32,14 +31,19 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { setCurrentUserLoading, setProfiles, setCurrentUser } = useAppStore()
+  const {
+    setCurrentUserLoading,
+    setProfiles,
+    setCurrentUser,
+    selectedProfile,
+    setSelectedProfile
+  } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [refreshToken, setRefreshToken] = useState<string>()
-  const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
-  const { loading, error } = useQuery(CURRENT_USER_QUERY, {
+  const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken,
     onCompleted(data) {
@@ -50,9 +54,12 @@ const SiteLayout: FC<Props> = ({ children }) => {
           !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
         )
 
+      console.log(setSelectedProfile)
       setCurrentUserLoading(false)
       setCurrentUser(profiles && profiles[selectedProfile])
       setProfiles(profiles)
+      setSelectedProfile(selectedProfile)
+
       consoleLog(
         'Query',
         '#8b5cf6',
@@ -63,7 +70,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
-    setSelectedProfile(localStorage.selectedProfile)
     setPageLoading(false)
 
     if (!activeConnector) {
@@ -71,18 +77,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }
 
     activeConnector?.on('change', () => {
-      localStorage.removeItem('selectedProfile')
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
       disconnect()
     })
   }, [selectedProfile, activeConnector, disconnect])
-
-  const injectedGlobalContext = {
-    selectedProfile,
-    setSelectedProfile,
-    currentUserError: error
-  }
 
   const toastOptions = {
     style: {
@@ -109,7 +108,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   if (loading || pageLoading) return <Loading />
 
   return (
-    <AppContext.Provider value={injectedGlobalContext}>
+    <>
       <Head>
         <meta
           name="theme-color"
@@ -121,7 +120,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
         <Navbar />
         {children}
       </div>
-    </AppContext.Provider>
+    </>
   )
 }
 

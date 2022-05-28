@@ -1,6 +1,5 @@
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
-import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { Menu, Transition } from '@headlessui/react'
 import {
@@ -24,7 +23,7 @@ import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { FC, Fragment, useContext, useState } from 'react'
+import { FC, Fragment, useState } from 'react'
 import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
 import { useDisconnect, useNetwork } from 'wagmi'
 
@@ -43,10 +42,14 @@ const MenuItems: FC = () => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const { setSelectedProfile } = useContext(AppContext)
-
-  const { profiles, staffMode, setStaffMode, currentUser, currentUserLoading } =
-    useAppStore()
+  const {
+    profiles,
+    staffMode,
+    setStaffMode,
+    setSelectedProfile,
+    currentUser,
+    currentUserLoading
+  } = useAppStore()
 
   return currentUserLoading ? (
     <div className="w-8 h-8 rounded-full shimmer" />
@@ -119,7 +122,6 @@ const MenuItems: FC = () => {
                 as="a"
                 onClick={() => {
                   trackEvent('logout')
-                  localStorage.removeItem('selectedProfile')
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
                   disconnect()
@@ -150,11 +152,7 @@ const MenuItems: FC = () => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
-                            localStorage.setItem(
-                              'selectedProfile',
-                              index.toString()
-                            )
-                            setSelectedProfile(index)
+                            setSelectedProfile(0)
                             trackEvent('switch profile')
                           }}
                         >
