@@ -13,16 +13,18 @@ import { PostFields } from '@gql/PostFields'
 import consoleLog from '@lib/consoleLog'
 import { apps } from 'data/apps'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
 
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
 import SinglePost from './SinglePost'
 import ViaApp from './ViaApp'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
+const Custom500 = dynamic(() => import('src/pages/500'))
 
 export const POST_QUERY = gql`
   query Post(

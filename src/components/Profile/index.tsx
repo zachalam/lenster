@@ -3,10 +3,9 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SEO from '@components/utils/SEO'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
 
 import Cover from './Cover'
 import Details from './Details'
@@ -14,6 +13,9 @@ import Feed from './Feed'
 import FeedType from './FeedType'
 import NFTFeed from './NFTFeed'
 import ProfilePageShimmer from './Shimmer'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
+const Custom500 = dynamic(() => import('src/pages/500'))
 
 export const PROFILE_QUERY = gql`
   query Profile($request: ProfileQueryRequest!) {

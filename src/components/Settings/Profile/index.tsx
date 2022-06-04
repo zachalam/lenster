@@ -8,14 +8,16 @@ import { PhotographIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import clsx from 'clsx'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import React, { FC, ReactNode, useContext, useState } from 'react'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
 
 import Sidebar from '../Sidebar'
 import NFTPicture from './NFTPicture'
 import Picture from './Picture'
 import Profile from './Profile'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
+const Custom500 = dynamic(() => import('src/pages/500'))
 
 const PROFILE_SETTINGS_QUERY = gql`
   query ProfileSettings($request: ProfileQueryRequest!) {

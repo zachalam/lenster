@@ -17,13 +17,15 @@ import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { FC, useContext, useState } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
-import Custom404 from 'src/pages/404'
 import { object, string } from 'zod'
 
 import Reason from './Reason'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
 
 export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
   mutation ReportPublication($request: ReportPublicationRequest!) {

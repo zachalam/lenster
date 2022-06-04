@@ -13,6 +13,7 @@ import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
+import dynamic from 'next/dynamic'
 import React, { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -22,13 +23,14 @@ import {
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
-import Custom404 from 'src/pages/404'
 import {
   useAccount,
   useContractWrite,
   useNetwork,
   useSignTypedData
 } from 'wagmi'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
 
 import Sidebar from '../Sidebar'
 

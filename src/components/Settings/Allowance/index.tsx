@@ -8,13 +8,15 @@ import SEO from '@components/utils/SEO'
 import { Erc20 } from '@generated/types'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import React, { useContext, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
 
 import Sidebar from '../Sidebar'
 import Allowance from './Allowance'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
+const Custom500 = dynamic(() => import('src/pages/500'))
 
 export const ALLOWANCE_SETTINGS_QUERY = gql`
   query ApprovedModuleAllowanceAmount(

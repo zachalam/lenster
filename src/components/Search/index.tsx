@@ -1,13 +1,15 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
-import Custom404 from 'src/pages/404'
 
 import Profiles from './Profiles'
 import Publications from './Publications'
 import Sidebar from './Sidebar'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
 
 const Search: NextPage = () => {
   const { query } = useRouter()

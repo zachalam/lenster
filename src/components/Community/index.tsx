@@ -5,13 +5,15 @@ import SEO from '@components/utils/SEO'
 import { CommunityFields } from '@gql/CommunityFields'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
 
 import Details from './Details'
 import CommunityPageShimmer from './Shimmer'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
+const Custom500 = dynamic(() => import('src/pages/500'))
 
 const COMMUNITY_QUERY = gql`
   query Community($request: PublicationQueryRequest!) {

@@ -24,6 +24,7 @@ import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import React, { ChangeEvent, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -34,7 +35,6 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
-import Custom404 from 'src/pages/404'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -43,6 +43,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 import { object, string } from 'zod'
+
+const Custom404 = dynamic(() => import('src/pages/404'))
 
 const newCommunitySchema = object({
   name: string()
