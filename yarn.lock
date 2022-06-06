@@ -1502,10 +1502,10 @@
   dependencies:
     emotion "10.0.27"
 
-"@giphy/js-fetch-api@^4.1.2", "@giphy/js-fetch-api@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-4.2.0.tgz#95f866d2e4af5fc5e904a1eb7db20743aaabf48f"
-  integrity sha512-ulIAxdy2mJgwmX6y+h1uO0LCpqIge+IkqqTh53DwtRlBAEFTriy+qFbaM3qIoXFeYBp5/16/DGROAh9UE99sug==
+"@giphy/js-fetch-api@^4.1.2", "@giphy/js-fetch-api@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-4.2.1.tgz#a247f08df0b8ad379ddf751546d679d4d556a519"
+  integrity sha512-IfuRIXtD2bvTPx2nDhmtJo7e58REbggFufodDzPvJmFZARCrXT8QAKt16uEjigHmoBF52DJPRFk6ujRQxI9NoA==
   dependencies:
     "@giphy/js-types" "^4.2.0"
     "@giphy/js-util" "^4.1.0"
@@ -1525,16 +1525,16 @@
     dompurify "^2.2.2"
     uuid "^8.3.0"
 
-"@giphy/react-components@^5.8.0":
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-5.8.0.tgz#934eca5acf57e8e2e5403671f327f33667f9e057"
-  integrity sha512-e4SkueRVCeujBkzf9a7qp1xFqUVjzF7ZgFkPWykUq9LUZvWbaZWWQsxttJPgaY+Hy0ezE+OKUeD8+lOAdyvDwg==
+"@giphy/react-components@^5.8.1":
+  version "5.8.1"
+  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-5.8.1.tgz#21ac82dce81f2dfae9f413e47b9f0016256f83a8"
+  integrity sha512-LAnXB8ZNge9Bd6xnnTdOMVvjn38IORcLmc5Dwj32sm37DxZCLPqabgAWTMlDwW/CdwNGjNxPZ2pwK7eBag0QbA==
   dependencies:
     "@emotion/core" "10.1.1"
     "@emotion/styled" "10.0.27"
     "@giphy/js-analytics" "^4.1.0"
     "@giphy/js-brand" "^2.1.0"
-    "@giphy/js-fetch-api" "^4.2.0"
+    "@giphy/js-fetch-api" "^4.2.1"
     "@giphy/js-types" "^4.2.0"
     "@giphy/js-util" "^4.1.0"
     emotion-theming "10.0.27"
