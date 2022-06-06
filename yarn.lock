@@ -1502,10 +1502,10 @@
   dependencies:
     emotion "10.0.27"
 
-"@giphy/js-fetch-api@^4.1.2", "@giphy/js-fetch-api@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-4.2.0.tgz#95f866d2e4af5fc5e904a1eb7db20743aaabf48f"
-  integrity sha512-ulIAxdy2mJgwmX6y+h1uO0LCpqIge+IkqqTh53DwtRlBAEFTriy+qFbaM3qIoXFeYBp5/16/DGROAh9UE99sug==
+"@giphy/js-fetch-api@^4.2.0", "@giphy/js-fetch-api@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-4.2.1.tgz#a247f08df0b8ad379ddf751546d679d4d556a519"
+  integrity sha512-IfuRIXtD2bvTPx2nDhmtJo7e58REbggFufodDzPvJmFZARCrXT8QAKt16uEjigHmoBF52DJPRFk6ujRQxI9NoA==
   dependencies:
     "@giphy/js-types" "^4.2.0"
     "@giphy/js-util" "^4.1.0"
