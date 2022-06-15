@@ -294,9 +294,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   useEffect(() => {
     const keyPressEvent = (e: KeyboardEvent) => {
-      const modifier = navigator.platform.includes('Mac')
-        ? e.metaKey
-        : e.ctrlKey
+      const modifier =
+        navigator.platform.includes('Mac') ||
+        navigator.platform === 'iPad' ||
+        navigator.platform === 'iPhone'
+          ? e.metaKey
+          : e.ctrlKey
       if (modifier && e.code === 'Enter') {
         createPost()
       }
