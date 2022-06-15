@@ -309,7 +309,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       }
     }
 
-    document.addEventListener('keyup', keyPressEvent)
+    document.addEventListener('keydown', keyPressEvent)
 
     return () => {
       document.removeEventListener('keydown', keyPressEvent)
