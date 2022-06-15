@@ -297,15 +297,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       const modifier = navigator.platform.includes('Mac')
         ? e.metaKey
         : e.ctrlKey
-      console.log(modifier)
-      if (navigator.platform.includes('Mac')) {
-        if (e.metaKey && e.code === 'Enter') {
-          createPost()
-        }
-      } else {
-        if (e.ctrlKey && e.code === 'Enter') {
-          createPost()
-        }
+      if (modifier && e.code === 'Enter') {
+        createPost()
       }
     }
 
