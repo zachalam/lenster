@@ -28,7 +28,14 @@ import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { Dispatch, FC, useContext, useState } from 'react'
+import {
+  Dispatch,
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
@@ -222,7 +229,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     }
   )
 
-  const createPost = async () => {
+  const createPost = useCallback(async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
@@ -271,7 +278,33 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         }
       })
     }
-  }
+  }, [
+    account?.address,
+    activeChain?.id,
+    attachments,
+    createPostTypedData,
+    currentUser?.handle,
+    currentUser?.id,
+    feeData,
+    onlyFollowers,
+    postContent,
+    selectedModule.moduleName,
+    userSigNonce
+  ])
+
+  useEffect(() => {
+    const keyPressEvent = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.code === 'Enter') {
+        createPost()
+      }
+    }
+
+    document.addEventListener('keyup', keyPressEvent)
+
+    return () => {
+      document.removeEventListener('keydown', keyPressEvent)
+    }
+  }, [createPost])
 
   const setGifAttachment = (gif: IGif) => {
     const attachment = {
